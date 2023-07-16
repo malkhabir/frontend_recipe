@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@sencha/ext-ux": "^7.7.0"
+  }
+}

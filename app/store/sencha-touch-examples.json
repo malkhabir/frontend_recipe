@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Pancakes",
+        "description": "not so fluffy",
+        "preparationtime":10,
+        "thumb": "pancakes.png",
+        "type": "Application"
+    },
+    {
+        "title": "Scrambled Eggs",
+        "description": "should be fluffy",
+        "preparationtime":5,
+        "thumb": "scrambledeggs.png",
+        "type": "Breakfast"
+    },
+    {
+        "title": "Bacon Sandwich",
+        "description": "dont forget the cheeezzee",
+        "preparationtime":1,
+        "thumb": "baconsandwich.png",
+        "type": "Breakfast"
+    }
+]
