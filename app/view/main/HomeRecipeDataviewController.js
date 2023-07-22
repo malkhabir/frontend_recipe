@@ -56,37 +56,82 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataviewController', {
     },
 
     onRecipeDoubleClick: function (view, record) {
-        var tabPanel = Ext.getCmp('recipeTabPanel'); // Get the reference to the tab panel
-        var itemId = 'recipeTab-' + record.getId(); // Unique ID for the tab item
-        var existingTab = tabPanel.child('#' + itemId); // Check if the tab already exists
+        // Create the window if it doesn't exist or show the existing one
+        var window = Ext.WindowManager.get('recipeWindow');
+        if (!window) {
+          window = Ext.create('Ext.window.Window', {
+            itemId: 'recipeWindow',
+            title: 'Recipe: ' + record.get('title'),
+            maximized: true,
+            layout: 'fit',
+            items: [
+                {
+                    xtype: 'panel',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center', // Center the child items horizontally within the container
+                        //pack: 'center', // Center the child items vertically within the container
+                      },
+                    items: [
+                        {
+                            xtype: 'image',
+                            src: 'https://localhost:7270/api/recipe/image/' + record.get('ImagePath'),
+                            width: 300, // adjust the image width as needed
+                            height: 200, // adjust the image height as needed
+                            margin: '20 0 0 0' // up right down left
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'vbox',
+                            padding: '50 0',
+                            items: [
+                                {
+                                    xtype: 'component',
+                                    html: record.get('description'), // Use the description from the record
+                                    style: 'white-space: normal;', // Use CSS to handle word wrapping
+                                },
+                            ],
 
-        if (existingTab) {
-            tabPanel.setActiveTab(existingTab); // Activate the existing tab if it already exists
-        } else {
-            var newTab = tabPanel.add({
-                xtype: 'panel',
-                title: record.get('title'),
-                itemId: itemId,
-                closable: true,
-                items: [
-                    // Add your desired components to display the recipe details
-                    {
-                        xtype: 'component',
-                        html: 'Preparation Time: ' + record.get('preparationtime')
-                    },
-                    {
-                        xtype: 'component',
-                        html: 'Description: ' + record.get('description')
-                    },
-                    {
-                        xtype: 'component',
-                        html: 'Calories: ' + record.get('calories')
-                    }
-                    // Add more components as needed to display the recipe details
-                ]
-            });
-
-            tabPanel.setActiveTab(newTab); // Activate the newly created tab
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'vbox',
+                            padding: '10 0',
+                            items: [{
+                                    xtype: 'component',
+                                    html: '<h2>Instructions</h2>', // Add the header for instructions
+                                },
+                                {
+                                    xtype: 'component',
+                                    html: formatInstructions(record.data.instructions)
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+          });
         }
+      
+        window.show();
     }
+
 });
+
+function formatInstructions(instructions) {
+    debugger
+    const jsonObject = JSON.parse(instructions);
+    const stepPanels = [];
+    Object.keys(jsonObject).forEach((stepNumber) => {
+        stepPanels.push({
+            xtype: 'component',
+            html: `<strong>${stepNumber}.</strong> ${jsonObject[stepNumber]}`,
+            padding: '1000 0', // Add some spacing between each instruction
+            style: 'white-space: pre-wrap;'
+        });
+    });
+
+    // const formattedJsonString = `{${stepPanels.join('\n')}}`;
+
+    return stepPanels;
+}

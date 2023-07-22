@@ -5,6 +5,8 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
     store: {
         type: 'recipe'//'homerecipedataviewstore'
     },
+
+    
     requires: [
         'Ext.toolbar.TextItem',
         'Ext.view.View',
@@ -14,7 +16,7 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
     ],
 
     title: 'Recipes',
-
+    
     tbar: {
             defaults: {
                 listeners: {
@@ -36,21 +38,25 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
             }]
         },
 
+    
     columns: [{
         xtype: 'templatecolumn',
-        flex: 1,
+        flex:1,
         tpl: [
             '<tpl for=".">',
                 '<div class="dataview-multisort-item">',
                     '<div class="meal-category">',
                         '<div class="meal-image" style="display: inline-block;">',
-                            '<img src="{[this.getImageUrl(values)]}" width="100" height="100" />',
+                            '<img src="{[this.getImageUrl(values)]}" width="150" height="100" />',
                         '</div>',
-                        '<div class="meal-details" style="display: inline-block;">',
-                            '<h3>&nbsp;&nbsp;{title}</h3>',
-                            '<p>&nbsp;&nbsp;Prep Time: {preparationtime} min</p>',
-                            '<p>&nbsp;&nbsp;Description: {description}&nbsp;&nbsp;Calories: {calories}</p>',
+                        '<div class="meal-details" style="display: inline-block;">', // Right-justify the meal details
+                            '<h3 style="white-space: normal;">{title}</h3>',
+                            '<p style="white-space: normal;">Preparation Time: {preparationtime} min</p>',
+                            '<p style="white-space: normal;">Description: {description}</p>',
+                            // Right-justify the "Calories" label
+                            
                         '</div>',
+                        '<p style="white-space: normal; text-align: right;">Calories: {calories}</p>',
                     '</div>',
                 '</div>',
             '</tpl>',
