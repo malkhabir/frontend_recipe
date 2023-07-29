@@ -11,7 +11,8 @@ Ext.define('frontend_recipe.model.Recipe', {
         {name: 'recipeId', type: 'string', persist: false, unique: true, identifier: 'sequential' },
         {name: 'recipesteps', type: 'int'},
         {name: 'instructions', type: 'string'},
-        {name: 'imagepath', type: 'string'}
+        {name: 'imagepath', type: 'string'},
+        {name: 'Calories', type: 'number'}
     ],
 
     hasMany: {

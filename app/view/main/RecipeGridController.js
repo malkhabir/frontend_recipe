@@ -8,7 +8,7 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
             layout: 'fit',
             xtype: 'formwindow',
             title: 'Add Recipe',
-            height: 600,
+            height: 650,
             width: 500,
             items: [{
                 xtype: 'tabpanel',
@@ -246,7 +246,7 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
                                             recipeId: record.data.recipeId
                                         }
                                     },
-                                    fields: ['Name', 'MeasurementUnit', 'IngredientId'],
+                                    fields: ['Name', 'MeasurementUnit', 'IngredientId', 'Quantity'],
                                     autoLoad: true,
                                     
                                 }),
@@ -309,7 +309,8 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
                                 selModel: 'rowmodel',
                                 plugins: [{
                                     ptype: 'rowediting',
-                                    clicksToEdit: 2
+                                    clicksToEdit: 1,
+                                    autoUpdate: true,
                                 }],
                             }]
                         }]

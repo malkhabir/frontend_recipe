@@ -63,46 +63,44 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataviewController', {
             itemId: 'recipeWindow',
             title: 'Recipe: ' + record.get('title'),
             maximized: true,
-            layout: 'fit',
             items: [
                 {
                     xtype: 'panel',
-                    layout: {
-                        type: 'vbox',
-                        align: 'center', // Center the child items horizontally within the container
-                        //pack: 'center', // Center the child items vertically within the container
-                      },
+                    flex: 1,
+                    padding: '100',
+                    scrollable: true,
                     items: [
                         {
-                            xtype: 'image',
-                            src: 'https://localhost:7270/api/recipe/image/' + record.get('ImagePath'),
-                            width: 300, // adjust the image width as needed
-                            height: 200, // adjust the image height as needed
-                            margin: '20 0 0 0' // up right down left
+                            xtype: 'container',
+                            flex: 1,
+                            layout: {
+                                type: 'vbox', // Use 'hbox' layout to center the image horizontally
+                                pack: 'center', // Center the child items horizontally within the container
+                                align: 'center', // Center the child items vertically within the container
+                            },
+                            items: [{
+                                xtype: 'image',
+                                src: 'https://localhost:7270/api/recipe/image/' + record.get('ImagePath'),
+                                width: 200, // adjust the image width as needed
+                                height: 150, // adjust the image height as needed
+                            }]
                         },
                         {
                             xtype: 'container',
-                            layout: 'vbox',
-                            padding: '50 0',
-                            items: [
-                                {
-                                    xtype: 'component',
-                                    html: record.get('description'), // Use the description from the record
-                                    style: 'white-space: normal;', // Use CSS to handle word wrapping
-                                },
-                            ],
+                            flex: 1,
+                            html: record.get('description')
 
                         },
                         {
                             xtype: 'container',
-                            layout: 'vbox',
-                            padding: '10 0',
+                            flex: 1,
                             items: [{
                                     xtype: 'component',
                                     html: '<h2>Instructions</h2>', // Add the header for instructions
                                 },
                                 {
                                     xtype: 'component',
+                                    padding: '10',
                                     html: formatInstructions(record.data.instructions)
                                 }
                             ]
@@ -110,6 +108,7 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataviewController', {
                     ]
                 }
             ]
+            
           });
         }
       
@@ -125,13 +124,10 @@ function formatInstructions(instructions) {
     Object.keys(jsonObject).forEach((stepNumber) => {
         stepPanels.push({
             xtype: 'component',
-            html: `<strong>${stepNumber}.</strong> ${jsonObject[stepNumber]}`,
-            padding: '1000 0', // Add some spacing between each instruction
-            style: 'white-space: pre-wrap;'
+            html: `${stepNumber}. ${jsonObject[stepNumber]}`,
+            style: 'white-space: pre-wrap; margin-bottom: 10px;', // Add margin between each instruction
         });
     });
-
-    // const formattedJsonString = `{${stepPanels.join('\n')}}`;
 
     return stepPanels;
 }

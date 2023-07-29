@@ -13,6 +13,12 @@ Ext.define('frontend_recipe.view.IngredientFormCreate', {
         fieldLabel: 'Unit',
         name: 'MeasurementUnit',
         allowBlank: false
+    },
+    {
+        fieldLabel: 'Calories',
+        name: 'Calories',
+        allowBlank: false
+        
     }],
     buttons: [{
         text: 'Save',

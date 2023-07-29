@@ -19,6 +19,12 @@ Ext.define('frontend_recipe.view.IngredientFormUpdate', {
         name: 'IngredientId',
         allowBlank: false,
         hidden: true
+    },
+    {
+        fieldLabel: 'Calories',
+        name: 'Calories',
+        allowBlank: false
+        
     }],
     buttons: [{
         text: 'Update',

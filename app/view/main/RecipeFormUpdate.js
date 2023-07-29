@@ -85,13 +85,4 @@ Ext.define('frontend_recipe.view.RecipeFormUpdate', {
         allowBlank: false,
         maxRows: 2
     }],
-
-    // buttons: [{
-    //     text: 'Update',
-    //     formBind: true,
-    //     handler: 'onUpdateClick'
-    // }, {
-    //     text: 'Cancel',
-    //     handler: 'onCancelClick'
-    // }]
 });

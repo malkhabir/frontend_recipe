@@ -2,8 +2,9 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
     extend: 'Ext.grid.Panel',
     xtype: 'homerecipedataview',
     controller: 'dataview-multisort',
+    
     store: {
-        type: 'recipe'//'homerecipedataviewstore'
+        type: 'recipe'
     },
 
     
@@ -46,17 +47,15 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
             '<tpl for=".">',
                 '<div class="dataview-multisort-item">',
                     '<div class="meal-category">',
-                        '<div class="meal-image" style="display: inline-block;">',
+                        '<div class="meal-image" style="display: inline-block; width: 15%; flex: 1; margin-right: 0px;" >',
                             '<img src="{[this.getImageUrl(values)]}" width="150" height="100" />',
                         '</div>',
-                        '<div class="meal-details" style="display: inline-block;">', // Right-justify the meal details
+                        '<div  style="display: inline-block; width: 85%; flex: 3;" >',
                             '<h3 style="white-space: normal;">{title}</h3>',
                             '<p style="white-space: normal;">Preparation Time: {preparationtime} min</p>',
                             '<p style="white-space: normal;">Description: {description}</p>',
-                            // Right-justify the "Calories" label
-                            
+                            '<p style="white-space: normal; text-align: right;">Calories: {Calories}</p>',
                         '</div>',
-                        '<p style="white-space: normal; text-align: right;">Calories: {calories}</p>',
                     '</div>',
                 '</div>',
             '</tpl>',

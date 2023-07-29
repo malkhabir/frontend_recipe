@@ -30,7 +30,7 @@ Ext.define('frontend_recipe.controller.IngredientFormController', {
     onUpdateClick: function() {
         var form = this.getView().getForm();
         var formwindow = this.getView().up('window');
-        debugger;
+        // debugger;
         var record = form.getValues();
             if (form.isValid()) {
                 Ext.Ajax.request({

@@ -3,7 +3,10 @@ Ext.define('frontend_recipe.model.Ingredient', {
     extend: 'Ext.data.Model',
     
     fields: [
-        'Name', 'MeasurementUnit', 'IngredientId'
+        {name: 'Name', type: 'string'},
+        {name: 'MeasurementUnit', type: 'string'},
+        {name: 'IngredientId', type: 'int'},
+        {name: 'Calories', type: 'number'}
     ],
 
     proxy: {
