@@ -1,4 +1,4 @@
-# frontend_recipe
+# frontend_recipe (WIP)
 
 This folder is primarily a container for the top-level pieces of the application.
 While you can remove some files and folders that this application does not use,
@@ -31,7 +31,7 @@ process.
 Applications that target a single toolkit will have the following structure.
 
     app/                # Contains JavaScript and Theme code
-        model/          # Data model classes
+        model/          # Data model classes, 
         view/           # Views as well as ViewModels and ViewControllers
         store/          # Data stores
         controller/     # Global / application-level controllers
@@ -55,6 +55,29 @@ and other activities that span all views.
 
 This folder contains the application's (data) Model classes.
 
+To illustrate the basic structure of a model, we are going to take a look at the Recipe Model. The Recipe model represents a recipe entity in our application. It defines various fields that correspond to the attributes of a recipe, such as title, description, preparation time, author, type, and so on. Additionally, it specifies associations with other models and sets up a proxy for data communication with the server.
+* Fields - 
+The fields property defines the data fields present in the Recipe model. Each field is an object with properties like name and type. Here is a list of the fields and their descriptions:
+  1. title (type: string): The title of the recipe.
+  2. description (type: string): A brief description of the recipe.
+  3. preparationtime (type: int, sortType: asInt): The time required to prepare the recipe in minutes. The sortType: 'asInt' ensures numeric sorting.
+  4. author (type: string): The name of the recipe author.
+  5. type (type: string): The type or category of the recipe.
+  6. recipeId (type: string, persist: false, unique: true, identifier: sequential): The unique identifier of the recipe. The persist: false indicates that this field should not be saved to the server. The unique: true ensures that each recipe has a unique identifier. The identifier: sequential specifies that the identifier should be generated sequentially.
+  7. recipesteps (type: int): The number of steps in the recipe.
+  8. instructions (type: string): Detailed instructions on how to prepare the recipe.
+  9. imagepath (type: string): The path to the image associated with the recipe.
+  10. Calories (type: number): The calorie count of the recipe.
+* Associations - 
+The Recipe model has a one-to-many association with the CountryTags model. This means that a recipe can be associated with multiple country tags. The association is defined using the hasMany property.
+* Proxy - 
+The proxy property specifies how the Recipe model communicates with the server to perform CRUD operations (Create, Read, Update, Delete). It is set up as an AJAX proxy to interact with the server through JSON data.
+type: 'ajax': Specifies that an AJAX proxy is used for data communication.
+url: 'https://localhost:7270/api/recipe': The URL where the server API for recipes is located.
+reader: Specifies the reader for reading data from the server response. In this case, we use a JSON reader.
+writer: Specifies the writer for writing data to the server. We set writeAllFields: true to include all fields of the model in the request.
+Overall, the Recipe model provides a structured representation of a recipe and handles data communication with the server using an AJAX proxy. This model can be used with stores and views to manage recipe data in our application.
+
 #### app/view/
 
 This folder contains the views as well as ViewModels and ViewControllers depending on the
@@ -71,6 +94,8 @@ structure is recommended:
 
 This structure helps keep these closely related classes together and easily identifiable in
 most tabbed IDE's or text editors.
+
+To understand how a view is used, we are going to take a look at the RecipeGrid View.
 
 #### app/store/
 
@@ -91,4 +116,7 @@ This area is intended for overrides like these:
 Such overrides, while automatically required, will only be included if their target
 class ("Ext.foo.Bar" in this case) is also required. This simplifies applying
 patches or extensions to other classes.
+
+#### Endpoints
+ The Endpoints used in the frontend are defined in [repo](https://github.com/malkhabir/WebAPI_recipe.git). 
 
