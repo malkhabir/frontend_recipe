@@ -198,6 +198,7 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
     
     onEditClick: async function() {
         var record = this.getView().getSelectionModel().getSelection()[0];
+        var formwindow;
         var window = this.getView().add({
             layout: 'fit',
             xtype: 'formwindow',
@@ -299,6 +300,7 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
                                 {
                                     text: 'Quantity',
                                     dataIndex: 'Quantity',
+                                    valueField: 'Quantity',
                                     flex: 1,
                                     editor: {
                                         xtype: 'numberfield',
@@ -347,73 +349,92 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
                 {
                     text: 'Submit',
                     handler: function() {
-                        var formwindow = this.up('formwindow')
-                        // Check if the ingredient store is empty
-                        debugger
-                        var tab2GridStore = tab2.down('grid').getStore().data;
-                        if ( tab2GridStore.length == 0 || tab2GridStore.length == undefined) {
-                            Ext.Msg.alert('Error', 'Please add ingredients.');
-                            return;
-                        }
-                        var tab1Form = tab1.items.items[0];
-                        //var form = this.up('formwindow').down('ingredientselectionview');
-                        if (tab1Form.isValid()) {
-                            // Submit the form data
-                            var formData1 = tab1Form.getValues();
-                            var formData2Array = tab2GridStore.items;
 
-                            //Get data from tab2
-                            var jsonDataFromTab2 = [];
+                        Ext.MessageBox.confirm('Confirm Update', 'Are you sure you want to update the recipe?', function (btn) {
+                            if (btn === 'yes') {
+                                debugger
+                                // Exit row editor if it is still open. This will allow the current change to be saved. 
+                                var rowEditing = tab2.down('grid').getPlugins().find(function (plugin) {
+                                    return plugin.ptype === 'rowediting';
+                                });
+                                if (rowEditing.editing) {
+                                    // Click out of the row editor without saving changes
+                                    rowEditing.completeEdit();
+                                }
 
-                            // Iterate over each item in the 'items' array
-                            for (var i = 0; i < formData2Array.length; i++) {
-                                var ingredientId = formData2Array[i].data.IngredientId;
-                                var quantity = formData2Array[i].data.Quantity;
+                                // Check if the ingredient store is empty
+                                debugger
+                                var tab2GridStore = tab2.down('grid').getStore().data;
+                                if ( tab2GridStore.length == 0 || tab2GridStore.length == undefined) {
+                                    Ext.Msg.alert('Error', 'Please add ingredients.');
+                                    return;
+                                }
+                                var tab1Form = tab1.items.items[0];
+                                //var form = this.up('formwindow').down('ingredientselectionview');
+                                if (tab1Form.isValid()) {
+                                    // Submit the form data
+                                    var formData1 = tab1Form.getValues();
+                                    var formData2Array = tab2GridStore.items;
 
-                                var ingredientData = {
-                                    IngredientId: ingredientId,
-                                    Quantity: quantity
-                                };
+                                    //Get data from tab2
+                                    var jsonDataFromTab2 = [];
 
-                                jsonDataFromTab2.push(ingredientData);
-                            }
-                            
-                            var mergedData = Ext.apply({}, formData1, { recipeingredients: jsonDataFromTab2 }); // Merge the form data
-                            debugger
-                            // Send the mergedData as JSON to the server
-                            Ext.getBody().mask('Please wait...', 'loading-mask');
-                            Ext.Ajax.request({
-                                url: 'https://localhost:7270/api/recipe/' + record.data.recipeId,
-                                method: 'PUT',
-                                jsonData: mergedData,
-                                success: function(response) {
-                                    var result = Ext.decode(response.responseText);
-                                    if (result.success) {
-                                        Ext.Msg.alert('Success', result.msg);
-                                        Ext.getCmp('RecipeGridID').getStore().reload();
-                                        formwindow.close();
-                                        Ext.getBody().unmask();
-                                      } else {
-                                        Ext.Msg.alert('Failure', result.msg);
-                                        Ext.getBody().unmask();
-                                      }
-                                },
-                                failure: function(response) {
-                                    Ext.Msg.alert('Failure', 'Form submission failed.');
+                                    // Iterate over each item in the 'items' array
+                                    for (var i = 0; i < formData2Array.length; i++) {
+                                        var ingredientId = formData2Array[i].data.IngredientId;
+                                        var quantity = formData2Array[i].data.Quantity;
+
+                                        var ingredientData = {
+                                            IngredientId: ingredientId,
+                                            Quantity: quantity
+                                        };
+
+                                        jsonDataFromTab2.push(ingredientData);
+                                    }
+                                    
+                                    var mergedData = Ext.apply({}, formData1, { recipeingredients: jsonDataFromTab2 }); // Merge the form data
+                                    debugger
+                                    // Send the mergedData as JSON to the server
+                                    Ext.getBody().mask('Please wait...', 'loading-mask');
+                                    Ext.Ajax.request({
+                                        url: 'https://localhost:7270/api/recipe/' + record.data.recipeId,
+                                        method: 'PUT',
+                                        jsonData: mergedData,
+                                        success: function(response) {
+                                            var result = Ext.decode(response.responseText);
+                                            if (result.success) {
+                                                Ext.Msg.alert('Success', result.msg);
+                                                Ext.getCmp('RecipeGridID').getStore().reload();
+                                                formwindow.close();
+                                                Ext.getBody().unmask();
+                                            } else {
+                                                Ext.Msg.alert('Failure', result.msg);
+                                                Ext.getBody().unmask();
+                                            }
+                                        },
+                                        failure: function(response) {
+                                            Ext.Msg.alert('Failure', 'Form submission failed.');
+                                            Ext.getBody().unmask();
+                                        }
+                                    });
+                                } else {
+                                    Ext.Msg.alert('Error', 'Please fill in all the required fields.');
                                     Ext.getBody().unmask();
                                 }
-                            });
-                        } else {
-                            Ext.Msg.alert('Error', 'Please fill in all the required fields.');
-                            Ext.getBody().unmask();
-                        }
+                            }
+                            else{
+                                // Do nothing
+                            }
+                        })
+                        
                     },
                     id: 'submitButton' // Add an id for easier access
                 }]
             }]
             
         });
-        debugger
+        formwindow = window
+
         var tabPanel = window.down('tabpanel');
         var tab1 = tabPanel.items.items[0];
         var tab2 = tabPanel.items.items[1];
