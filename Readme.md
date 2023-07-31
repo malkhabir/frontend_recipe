@@ -102,12 +102,9 @@ To understand how a view is used, we are going to take a look at the RecipeGrid 
    
    2. Docked Items
    The grid has a top docked toolbar containing the following items:
-   
-     a. Add: A button to add a new recipe. Clicking this button triggers the 'onAddClick' handler.
-     
-     b. Edit: A button to edit the selected recipe. This button is initially disabled and becomes enabled               when a recipe is selected in the grid. Clicking this button triggers the 'onEditClick' handler.
-     
-     c. Delete: A button to delete the selected recipe. This button is initially disabled and becomes enabled           when a recipe is selected in the grid. Clicking this button triggers the 'onDeleteClick' handler.
+    a. Add: A button to add a new recipe. Clicking this button triggers the 'onAddClick' handler.    
+    b. Edit: A button to edit the selected recipe. This button is initially disabled and becomes enabled               when a recipe is selected in the grid. Clicking this button triggers the 'onEditClick' handler.
+    c. Delete: A button to delete the selected recipe. This button is initially disabled and becomes enabled           when a recipe is selected in the grid. Clicking this button triggers the 'onDeleteClick' handler.
    
    3. Listeners (Not visible)
    The grid listens for the 'selectionchange' event and triggers the 'onSelectionChange' handler when the selection of items in the grid changes.
