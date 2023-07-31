@@ -1,4 +1,5 @@
 # frontend_recipe (WIP)
+frontend_recipe shows you how to develop a CRUD app using Sencha's tools. It is only useful to someone who understands (or is studying) ExtJS.
 
 This folder is primarily a container for the top-level pieces of the application.
 While you can remove some files and folders that this application does not use,
@@ -73,9 +74,9 @@ The Recipe model has a one-to-many association with the CountryTags model. This 
 * Proxy - 
 The proxy property specifies how the Recipe model communicates with the server to perform CRUD operations (Create, Read, Update, Delete). It is set up as an AJAX proxy to interact with the server through JSON data.
 type: 'ajax': Specifies that an AJAX proxy is used for data communication.
-url: 'https://localhost:7270/api/recipe': The URL where the server API for recipes is located.
-reader: Specifies the reader for reading data from the server response. In this case, we use a JSON reader.
-writer: Specifies the writer for writing data to the server. We set writeAllFields: true to include all fields of the model in the request.
+  1. url: 'https://localhost:7270/api/recipe': The URL where the server API for recipes is located. (For an implementation of      the server API logic, please refer to https://github.com/malkhabir/WebAPI_recipe.git)
+  2. reader: Specifies the reader for reading data from the server response. In this case, we use a JSON reader.
+  3. writer: Specifies the writer for writing data to the server. We set writeAllFields: true to include all fields of the model in the request.
 Overall, the Recipe model provides a structured representation of a recipe and handles data communication with the server using an AJAX proxy. This model can be used with stores and views to manage recipe data in our application.
 
 #### app/view/
@@ -95,7 +96,23 @@ structure is recommended:
 This structure helps keep these closely related classes together and easily identifiable in
 most tabbed IDE's or text editors.
 
-To understand how a view is used, we are going to take a look at the RecipeGrid View.
+To understand how a view is used, we are going to take a look at the RecipeGrid View. The RecipeGrid View is a panel with Columns, Docked Items  This grid is designed to display and manage recipe data, allowing users to view, add, edit, and delete recipes.. This grid contains:
+
+   1. Columns, 
+   
+   2. Docked Items
+   The grid has a top docked toolbar containing the following items:
+   
+     a. Add: A button to add a new recipe. Clicking this button triggers the 'onAddClick' handler.
+     
+     b. Edit: A button to edit the selected recipe. This button is initially disabled and becomes enabled               when a recipe is selected in the grid. Clicking this button triggers the 'onEditClick' handler.
+     
+     c. Delete: A button to delete the selected recipe. This button is initially disabled and becomes enabled           when a recipe is selected in the grid. Clicking this button triggers the 'onDeleteClick' handler.
+   
+   3. Listeners (Not visible)
+   The grid listens for the 'selectionchange' event and triggers the 'onSelectionChange' handler when the selection of items in the grid changes.
+
+Note: The handlers for 'onAddClick', 'onEditClick', and 'onDeleteClick', as well as the 'onSelectionChange' handler, are defined in the 'recipegridcontroller' controller.
 
 #### app/store/
 
