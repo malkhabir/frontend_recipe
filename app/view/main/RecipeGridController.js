@@ -44,7 +44,77 @@ Ext.define('frontend_recipe.controller.RecipeGridController', {
                         items: [{
                             xtype: 'ingredientselectionview',
                             flex: 1,
-                            scrollable: 'y'
+                            scrollable: 'y',
+                            items: [{
+                                xtype: 'grid',
+                                flex: 1,
+                                store: Ext.create('Ext.data.Store', {
+                                    fields: ['IngredientId', 'Quantity'],
+                                    data: []
+                                }),
+                                columns: [{
+                                    text: 'Name',
+                                    dataIndex: 'IngredientId',
+                                    flex: 1,
+                                    editor: {
+                                        xtype: 'combobox',
+                                        store: Ext.create('Ext.data.Store', {
+                                            proxy: {
+                                                type: 'ajax',
+                                                url: 'https://localhost:7270/api/ingredient',
+                                                reader: {
+                                                    type: 'json',
+                                                }
+                                            },
+                                            fields: ['Name', 'MeasurementUnit', 'IngredientId'],
+                                            autoLoad: true,
+                                            
+                                        }),
+                                        displayField: 'Name',
+                                        valueField: 'IngredientId',
+                                        queryMode: 'remote',
+                                        forceSelection: true,
+                                        triggerAction: 'all',
+                                        editable: false,
+                                    },
+                                    renderer: function(value, metaData, record) {
+                                        var ingredientStore = this.columns[0].getEditor().getStore();
+                                        var ingredient = ingredientStore.findRecord('IngredientId', value);
+                                        if (ingredient) {
+                                            return ingredient.get('Name');
+                                        }
+                                        return value;
+                                    },
+                                    listeners: {
+                                        beforeedit: function(editor, context) {
+                                            var column = context.column;
+                                            if (column.dataIndex === 'IngredientId') {
+                                                var value = context.record.get(column.dataIndex);
+                                                if (!value || value === '') {
+                                                    Ext.Msg.alert('Error', 'Name cannot be empty');
+                                                    return false; // Prevent editing if the value is empty
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    text: 'Quantity',
+                                    dataIndex: 'Quantity',
+                                    flex: 1,
+                                    editor: {
+                                        xtype: 'numberfield',
+                                        allowDecimals: false,
+                                        minValue: 0
+                                    }
+                                }],
+                                selModel: 'rowmodel',
+                                plugins: [{
+                                    ptype: 'rowediting',
+                                    clicksToEdit: 1,
+                                    autoUpdate: true,
+                                }],
+                            }],
                         }]
                     }]
                 }]

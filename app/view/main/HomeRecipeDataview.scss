@@ -1,0 +1,72 @@
+/* Custom CSS class for the DataView to handle column layout */
+.grid-dataview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/* CSS for each grid item */
+.dataview-multisort-item {
+    width: calc(25% - 20px); /* Adjust the width of each item to create four columns with gutter space */
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: flex; /* Use flexbox to align image and info side by side */
+}
+
+.meal-image {
+    flex: 1; /* Allow the image to take the available space within the item */
+    width: 150px; /* Set the width for the image container */
+    height: 150px; /* Set the height for the image container */
+    position: relative;
+}
+
+.meal-image img {
+    width: 80%; /* Make sure the image fills the available width */
+    height: 100%; /* Make sure the image fills the available height */
+    object-fit: cover; /* Scale the image while maintaining its aspect ratio */
+}
+
+
+// .meal-info {
+//     position: relative; /* Set the meal info elements to have absolute positioning */
+//     top: -50% ; /* Position the elements at the top of the container */
+//     left: 0; /* Position the elements at the left of the container */
+//     padding: 10px;
+//     background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background to the overlay */
+//     color: white;
+//     font-size: 12px;
+//     font-weight: 400;
+//     height: 50%;
+// }
+
+// .calories {
+//     top: -50%;
+// }
+
+.meal-info {
+    flex-basis: 100%; /* Each meal-info should take the full available width */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background to the overlay */
+    color: white;
+    position: absolute; /* Set the meal-info to have absolute positioning */
+    top: 0; /* Align the meal-info to the top of the image container */
+    left: 0; /* Align the meal-info to the left of the image container */
+    width: 100%; /* Make sure the meal-info spans the full width of the image container */
+    height: 100%; /* Make sure the meal-info spans the full height of the image container */
+    display: flex; /* Use flexbox to arrange items inside meal-info */
+    flex-direction: column; /* Stack the items vertically */
+    justify-content: space-between; /* Space out the items inside meal-info vertically */
+    font-weight: 400;
+}
+
+.meal-header {
+    display: flex; /* Use flexbox to arrange items inside the meal header */
+    justify-content: space-between; /* Push the title and calories to the opposite ends */
+}
+
+.calories {
+    text-align: right; /* Align the Calories text to the right */
+    font-weight: 400;
+}

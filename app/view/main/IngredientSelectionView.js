@@ -7,6 +7,7 @@ Ext.define('frontend_recipe.view.IngredientSelectionView', {
         items: [{
             text: 'Add Row',
             handler: function() {
+                debugger
                 var grid = this.up('ingredientselectionview').down('grid');
                 var store = grid.getStore();
                 var newRecord = Ext.create('frontend_recipe.model.RecipeIngredients');

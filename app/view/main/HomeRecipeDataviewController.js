@@ -50,7 +50,8 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataviewController', {
     updateStoreSorters: function() {
         if (this.ready) {
             var sorters = this.getSorters();
-            var view = this.getView();
+            var view = this.getView().down('dataview');
+            debugger;
             view.store.sort(sorters);
         }
     },
@@ -63,36 +64,40 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataviewController', {
             itemId: 'recipeWindow',
             title: 'Recipe: ' + record.get('title'),
             maximized: true,
+            minWidth: 400, // Set the minimum width for the window
+            minHeight: 500,
+            scrollable: true,
+            layout: {
+                type: 'vbox', // Use 'hbox' layout to center the image horizontally
+                pack: 'center', // Center the child items horizontally within the container
+                align: 'center', // Center the child items vertically within the container
+            },  
             items: [
                 {
-                    xtype: 'panel',
-                    flex: 1,
-                    padding: '100',
-                    scrollable: true,
                     items: [
                         {
-                            xtype: 'container',
+                            xtype: 'panel',
                             flex: 1,
-                            layout: {
-                                type: 'vbox', // Use 'hbox' layout to center the image horizontally
-                                pack: 'center', // Center the child items horizontally within the container
-                                align: 'center', // Center the child items vertically within the container
-                            },
                             items: [{
+                                flex: 1,
                                 xtype: 'image',
                                 src: 'https://localhost:7270/api/recipe/image/' + record.get('ImagePath'),
                                 width: 200, // adjust the image width as needed
                                 height: 150, // adjust the image height as needed
+                                padding: 10
                             }]
                         },
                         {
-                            xtype: 'container',
+                            xtype: 'panel',
                             flex: 1,
-                            html: record.get('description')
-
+                            width: 500,
+                            padding: 10,
+                            items: [{
+                                html: record.get('description'),
+                            }]
                         },
                         {
-                            xtype: 'container',
+                            xtype: 'panel',
                             flex: 1,
                             items: [{
                                     xtype: 'component',

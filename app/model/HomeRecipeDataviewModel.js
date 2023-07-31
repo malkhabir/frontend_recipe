@@ -1,5 +1,7 @@
 Ext.define('frontend_recipe.model.HomeRecipeDataviewModel', {
-    extend: 'Ext.data.Model',  
+    extend: 'Ext.data.Model', 
+    autoLoad: true,
+    sortOnLoad: true, 
     fields: [
         {name: 'title', type: 'string' }, 
         {name: 'description', type: 'string'}, 

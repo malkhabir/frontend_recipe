@@ -5,6 +5,7 @@ Ext.define('frontend_recipe.view.RecipeFormCreate', {
     bodyPadding: 10,
     defaultType: 'textfield',
     url: 'https://localhost:7270/api/recipe/',
+    
     items: [{
         fieldLabel: 'Title',
         name: 'title',

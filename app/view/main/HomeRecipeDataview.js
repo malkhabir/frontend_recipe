@@ -1,12 +1,7 @@
 Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
-    extend: 'Ext.grid.Panel',
+    extend: 'Ext.panel.Panel',
     xtype: 'homerecipedataview',
     controller: 'dataview-multisort',
-    
-    store: {
-        type: 'recipe'
-    },
-
     
     requires: [
         'Ext.toolbar.TextItem',
@@ -40,21 +35,23 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
         },
 
     
-    columns: [{
-        xtype: 'templatecolumn',
-        flex:1,
+    items: {
+        xtype: 'dataview',
+        cls: 'grid-dataview', // Custom CSS class for the DataView to handle column layout
+        reference: 'dataview',
+        plugins: {'ux-animated-dataview': true},
+        itemSelector: 'div.dataview-multisort-item',
         tpl: [
             '<tpl for=".">',
                 '<div class="dataview-multisort-item">',
-                    '<div class="meal-category">',
-                        '<div class="meal-image" style="display: inline-block; width: 15%; flex: 1; margin-right: 0px;" >',
-                            '<img src="{[this.getImageUrl(values)]}" width="150" height="100" />',
-                        '</div>',
-                        '<div  style="display: inline-block; width: 85%; flex: 3;" >',
-                            '<h3 style="white-space: normal;">{title}</h3>',
-                            '<p style="white-space: normal;">Preparation Time: {preparationtime} min</p>',
-                            '<p style="white-space: normal;">Description: {description}</p>',
-                            '<p style="white-space: normal; text-align: right;">Calories: {Calories}</p>',
+                    '<div class="meal-image">',
+                        '<img src="{[this.getImageUrl(values)]}" />',
+                        '<div class="meal-info">',
+                            '<div class="meal-header">',
+                                '<h3>{title}</h3>',
+                                '<p class="calories">Calories: {Calories}</p>',
+                            '</div>',
+                                '<p>{preparationtime} min</p>',
                         '</div>',
                     '</div>',
                 '</div>',
@@ -69,11 +66,15 @@ Ext.define('frontend_recipe.view.main.HomeRecipeDataview', {
                     return imageUrl;
                 }
             }
-        ]
-    }],
+        ],
+        store: {
+            type: 'recipe'
+        },
+        listeners: {
+            itemdblclick: 'onRecipeDoubleClick'
+        }
+    },
 
-    listeners: {
-        itemdblclick: 'onRecipeDoubleClick'
-    }
+    
 
 });
