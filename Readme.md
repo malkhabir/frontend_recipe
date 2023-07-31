@@ -98,15 +98,20 @@ most tabbed IDE's or text editors.
 
 To understand how a view is used, we are going to take a look at the RecipeGrid View. The RecipeGrid View is a panel with Columns, Docked Items  This grid is designed to display and manage recipe data, allowing users to view, add, edit, and delete recipes.. This grid contains:
 
-   1. Columns, 
-   
-   2. Docked Items
+   1. Columns
+      The Columns config contains headers with header written like this:
+      
+    a. text: The header title. 
+    b. dataIndex: 'title' given the following json data object {title: "Scrambled Eggs",...}
+
+   3. Docked Items
    The grid has a top docked toolbar containing the following items:
-    a. Add: A button to add a new recipe. Clicking this button triggers the 'onAddClick' handler.    
-    b. Edit: A button to edit the selected recipe. This button is initially disabled and becomes enabled               when a recipe is selected in the grid. Clicking this button triggers the 'onEditClick' handler.
-    c. Delete: A button to delete the selected recipe. This button is initially disabled and becomes enabled           when a recipe is selected in the grid. Clicking this button triggers the 'onDeleteClick' handler.
+
+     a. Add: A button to add a new recipe. Clicking this button triggers the 'onAddClick' handler.    
+     b. Edit: A button to edit the selected recipe. This button is initially disabled and becomes enabled               when a recipe is selected in the grid. Clicking this button triggers the 'onEditClick' handler.
+     c. Delete: A button to delete the selected recipe. This button is initially disabled and becomes enabled           when a recipe is selected in the grid. Clicking this button triggers the 'onDeleteClick' handler.
    
-   3. Listeners (Not visible)
+   5. Listeners (Not visible)
    The grid listens for the 'selectionchange' event and triggers the 'onSelectionChange' handler when the selection of items in the grid changes.
 
 Note: The handlers for 'onAddClick', 'onEditClick', and 'onDeleteClick', as well as the 'onSelectionChange' handler, are defined in the 'recipegridcontroller' controller.
