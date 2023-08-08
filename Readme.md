@@ -1,5 +1,5 @@
 # frontend_recipe
-frontend_recipe shows you how to develop a CRUD app using Sencha's tools. The project showase a recipe management tool where recipes have ingredients attached to them by recipe id. 
+frontend_recipe shows you how to develop a CRUD app using Sencha's tools. The project showase a recipe management tool where recipes have ingredients attached to them by recipe id. As of today, there is no security implemented. 
 
 The roor folder is primarily a container for the top-level pieces of the application.
 While you can remove some files and folders that this application does not use,
