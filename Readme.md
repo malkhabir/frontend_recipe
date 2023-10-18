@@ -1,5 +1,5 @@
-# Frontend Recipe
-Frontend Recipe demonstrates how to develop a CRUD (Create, Read, Update, Delete) application using Sencha's tools. This project showcases a recipe management tool where recipes are associated with ingredients using a recipe ID. As of today, no security measures have been implemented.
+# Frontend Recipe (ExtJS)
+Frontend Recipe demonstrates how to develop a CRUD (Create, Read, Update, Delete) application using Sencha's tools. This project showcases a recipe management tool where recipes are associated with ingredients using a recipe ID. As of today, no security measures have been implemented. You are free to implement the backend in whatever you prefer. For an example using MSSQL + ASP.Net look at: https://github.com/malkhabir/webapi_recipe/tree/master
 
 The "root" folder primarily serves as a container for top-level components of the application. While you can remove files and folders not used by the application, please review the following before deciding what to delete and what to keep in source control.
 
